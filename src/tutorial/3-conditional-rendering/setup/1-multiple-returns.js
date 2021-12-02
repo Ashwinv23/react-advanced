@@ -13,13 +13,13 @@ const MultipleReturns = () => {
         let response = await fetch(url);
         if (response.status >= 200 && response.status <= 299) {
           response = await response.json();
-          const { login } = response;
-          setUser(login);
-          setIsLoading(false);
+          setUser(response.login);
+          // setIsLoading(false);
         } else {
-          setIsLoading(false);
+          // setIsLoading(false);
           setIsError(true);
         }
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
