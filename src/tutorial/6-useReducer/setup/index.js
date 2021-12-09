@@ -2,25 +2,27 @@ import React, { useState, useReducer } from 'react';
 import Modal from './Modal';
 import { data } from '../../../data';
 // reducer function
+const reducer = (state, action) => {};
+const defaultState = {
+  people: [],
+  isModalOpen: false,
+  modalContent: '',
+};
 
 const Index = () => {
-  const [people, setPeople] = useState(data);
-  let [modal, setModal] = useState(false);
   const [name, setName] = useState('');
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name) {
-      setModal(true);
-      setPeople([...people, { id: new Date().getTime(), name }]);
     } else {
-      setModal(true);
     }
   };
 
   return (
     <>
-      {modal && <Modal />}
+      {state.isModalOpen && <Modal modalContent={state.modalContent} />}
       <form onSubmit={handleSubmit} className='form'>
         <div>
           <input
@@ -31,7 +33,7 @@ const Index = () => {
         </div>
         <button type='submit'>Add</button>
       </form>
-      {people.map((ppl) => {
+      {state.people.map((ppl) => {
         return (
           <div>
             <h4>{ppl.name}</h4>
